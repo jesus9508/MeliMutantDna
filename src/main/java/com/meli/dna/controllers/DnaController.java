@@ -6,6 +6,7 @@ import com.meli.dna.dto.RequestDna;
 import com.meli.dna.services.interfaces.IDnaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,5 +22,10 @@ public class DnaController {
     @PostMapping("/mutant")
     ResponseEntity<?> postDna(@RequestBody RequestDna requestDna) {
         return iDnaService.processDna(requestDna);
+    }
+
+    @GetMapping("/stats")
+    ResponseEntity<?> statsDna(@RequestBody RequestDna requestDna) {
+        return null;
     }
 }

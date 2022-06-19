@@ -1,5 +1,6 @@
 package com.meli.dna.services.logic.validator;
 
+import com.meli.dna.dto.RequestDna;
 import com.meli.dna.services.logic.validator.interfaces.IValidMutantDna;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +16,16 @@ public class ValidMutantDna implements IValidMutantDna {
     private static final String MESSAGE = "message";
 
     @Override
-    public Map<String,String> validationsList(List<String> request) {
+    public Map<String,String> validationsList(RequestDna requestProcess) {
+
         Map<String,String> responseValidations = getMapResponseInstance();
         String valid = "true";
         String message = null;
         int initialRange = 0;
+        List<String> request =null;
         //validate for empty list of strings
-        if(validateIsNotEmptyList(request)){
+        if(validateIsNotEmptyList(requestProcess.getDna())){
+            request = requestProcess.getDna();
             initialRange = request.get(0).length();
             //valid for different numbers of characteres in list
             if(!validateIsValidRangeOfCharacters(request,initialRange)){
