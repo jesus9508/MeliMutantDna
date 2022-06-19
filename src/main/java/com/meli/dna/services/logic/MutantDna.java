@@ -1,11 +1,8 @@
 package com.meli.dna.services.logic;
 
-import com.meli.dna.services.logic.interfaces.IMutantDna;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class MutantDna extends AbstractMutantDna {
 
     private List<String> listMutantDna;
@@ -14,42 +11,43 @@ public class MutantDna extends AbstractMutantDna {
         listMutantDna = requestDna;
     }
 
-    public Boolean isMutant(String[] dna) {
-        //Contabiliza total de combinaciones iguales
-        int totalDna = 0;
+    public Boolean isMutant() {
+        List<String> dna = getListMutantDna();
+        //total of combinations
+        int dnaCombinations = 0;
         //Variable i recorre los string completos ej "ATAGC"
-        for (int i = 0; i < dna.length; i++) {
+        for (int i = 0; i < dna.size(); i++) {
             //j determina la posicion dentro del string
-            for (int j = 0; j < dna[i].length(); j++) {
-                // Control Horizontal
-                if (j < dna[i].length() - 3) {
-                    if (isEqual(dna[i].charAt(j), dna[i].charAt(j + 1), dna[i].charAt(j + 2), dna[i].charAt(j + 3))) {
-                        totalDna++;
+            for (int j = 0; j < dna.get(i).length(); j++) {
+                //Diag inv
+                if (i >= 3 && j < dna.get(i).length() - 3) {
+                    if (charactersAllEqual(dna.get(i).charAt(j), dna.get(i - 1).charAt(j + 1), dna.get(i - 2).charAt(j + 2), dna.get(i - 3).charAt(j + 3))) {
+                        dnaCombinations++;
                     }
                 }
-                // Control Vertical
-                if (i < dna.length - 3) {
+
+                //Diag
+                if (i < dna.size() - 3 && j < dna.get(i).length() - 3) {
+                    if (charactersAllEqual(dna.get(i).charAt(j), dna.get(i+1).charAt(j+1), dna.get(i+ 2).charAt(j + 2), dna.get(i + 3).charAt(j + 3))) {
+                        dnaCombinations++;
+                    }
+                }
+
+                //hprizontal
+                if (j < dna.get(i).length() - 3) {
+                    if (charactersAllEqual(dna.get(i).charAt(j), dna.get(i).charAt(j+1), dna.get(i).charAt(j+2), dna.get(i).charAt(j+3))) {
+                        dnaCombinations++;
+                    }
+                }
+                //vertical
+                if (i < dna.get(i).length() - 3) {
                     // vertical check
-                    if (isEqual(dna[i].charAt(j), dna[i + 1].charAt(j), dna[i + 2].charAt(j), dna[i + 3].charAt(j))) {
-                        totalDna++;
+                    if (charactersAllEqual(dna.get(i).charAt(j), dna.get(i + 1).charAt(j), dna.get(i + 2).charAt(j), dna.get(i + 3).charAt(j))) {
+                        dnaCombinations++;
                     }
                 }
 
-                //Control Diagonal
-                if (i < dna.length - 3 && j < dna[i].length() - 3) {
-                    if (isEqual(dna[i].charAt(j), dna[i + 1].charAt(j + 1), dna[i + 2].charAt(j + 2), dna[i + 3].charAt(j + 3))) {
-                        totalDna++;
-                    }
-                }
-
-                //Control Diagonal Invertido
-                if (i >= 3 && j < dna[i].length() - 3) {
-                    if (isEqual(dna[i].charAt(j), dna[i - 1].charAt(j + 1), dna[i - 2].charAt(j + 2), dna[i - 3].charAt(j + 3))) {
-                        totalDna++;
-                    }
-                }
-
-                if (totalDna > 1) {
+                if (dnaCombinations > 1) {
                     return true;
                 }
             }
@@ -57,10 +55,19 @@ public class MutantDna extends AbstractMutantDna {
         return false;
     }
 
-    //Retorana verdadedos si todo los char son iguales
-    public static boolean isEqual(char a, char b, char c, char d) {
+    public static boolean charactersAllEqual(char a, char b, char c, char d) {
         return a == b && b == c && c == d;
     }
 
+    public List<String> getListMutantDna() {
+        return listMutantDna;
+    }
 
+    public void setListMutantDna(List<String> listMutantDna) {
+        this.listMutantDna = listMutantDna;
+    }
+
+    private Boolean checkNumberOfCombinations(Integer combinations){
+       return combinations > 1;
+    }
 }

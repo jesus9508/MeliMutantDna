@@ -28,7 +28,9 @@ public class DnaService implements IDnaService {
         if(valid.equals("false")){
            return getResponseEntity(setResponseFailDna(message),HttpStatus.BAD_REQUEST);
         }
-        return null;
+        MutantDna mutantDna = getMutantDnaInstance(request.getList());
+        Boolean isMutant = mutantDna.isMutant();
+        return getResponseEntity(isMutant,HttpStatus.OK);
     }
 
     private ResponseEntity<?> getResponseEntity(Object object, HttpStatus httpStatus){
@@ -37,5 +39,9 @@ public class DnaService implements IDnaService {
 
     private ResponseFailDna setResponseFailDna(String message){
         return new ResponseFailDna(message);
+    }
+
+    private MutantDna getMutantDnaInstance(List<String> listDna){
+        return new MutantDna(listDna);
     }
 }

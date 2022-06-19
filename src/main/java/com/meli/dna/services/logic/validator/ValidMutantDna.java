@@ -10,7 +10,7 @@ import java.util.Map;
 @Component
 public class ValidMutantDna implements IValidMutantDna {
 
-    private static final String REGEX = "([ATCG])";
+    private static final String REGEX = "[ATCG]";
     private static final String VALID = "valid";
     private static final String MESSAGE = "message";
 
@@ -29,7 +29,7 @@ public class ValidMutantDna implements IValidMutantDna {
                 message = "there are different numbers of characters in List, please confirm you information";
             }else if(!validateIsValidCharacters(request)){
                 valid ="false";
-                message = "there are different numbers of characters in List, please confirm you information";
+                message = "there are differents characters that not in (A,T,C,G), please confirm you information";
             }
         }else{
             valid = "false";
@@ -74,9 +74,7 @@ public class ValidMutantDna implements IValidMutantDna {
      */
     private Boolean validateIsValidCharacters(List<String> request){
         for (String string :request) {
-             if(!string.matches(REGEX)){
-                 return false;
-             }
+             return !string.matches(REGEX);
         }
         return true;
     }
