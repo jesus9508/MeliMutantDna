@@ -1,6 +1,7 @@
 package com.meli.dna.services.logic;
 
 
+import javax.swing.text.StyledEditorKit;
 import java.util.List;
 
 public class MutantDna extends AbstractMutantDna {
@@ -15,39 +16,37 @@ public class MutantDna extends AbstractMutantDna {
         List<String> dna = getListMutantDna();
         //total of combinations
         int dnaCombinations = 0;
-        //Variable i recorre los string completos ej "ATAGC"
+        //run array by each dna String
         for (int i = 0; i < dna.size(); i++) {
-            //j determina la posicion dentro del string
+            //run string  by each character
             for (int j = 0; j < dna.get(i).length(); j++) {
                 //Diag inv
-                if (i >= 3 && j < dna.get(i).length() - 3) {
+                if (checkPossibleDiagReverseValid(i,j,dna.get(i).length())) {
                     if (charactersAllEqual(dna.get(i).charAt(j), dna.get(i - 1).charAt(j + 1), dna.get(i - 2).charAt(j + 2), dna.get(i - 3).charAt(j + 3))) {
                         dnaCombinations++;
                     }
                 }
-
                 //Diag
-                if (i < dna.size() - 3 && j < dna.get(i).length() - 3) {
+                if (checkPossibleDiagValid(i,j,dna.size(),dna.get(i).length())) {
                     if (charactersAllEqual(dna.get(i).charAt(j), dna.get(i+1).charAt(j+1), dna.get(i+ 2).charAt(j + 2), dna.get(i + 3).charAt(j + 3))) {
                         dnaCombinations++;
                     }
                 }
 
-                //hprizontal
-                if (j < dna.get(i).length() - 3) {
+                //horizontal
+                if (checkPossibleHorizontalValid(j,dna.get(i).length())) {
                     if (charactersAllEqual(dna.get(i).charAt(j), dna.get(i).charAt(j+1), dna.get(i).charAt(j+2), dna.get(i).charAt(j+3))) {
                         dnaCombinations++;
                     }
                 }
                 //vertical
-                if (i < dna.get(i).length() - 3) {
-                    // vertical check
+                if (checkPossibleVerticalValid(i,dna.get(i).length())) {
                     if (charactersAllEqual(dna.get(i).charAt(j), dna.get(i + 1).charAt(j), dna.get(i + 2).charAt(j), dna.get(i + 3).charAt(j))) {
                         dnaCombinations++;
                     }
                 }
 
-                if (dnaCombinations > 1) {
+                if (checkNumberOfCombinations(dnaCombinations)) {
                     return true;
                 }
             }
@@ -69,5 +68,20 @@ public class MutantDna extends AbstractMutantDna {
 
     private Boolean checkNumberOfCombinations(Integer combinations){
        return combinations > 1;
+    }
+
+    private Boolean checkPossibleVerticalValid(Integer arrayPos,Integer stringLength){
+        return arrayPos < stringLength - 3;
+    }
+
+    private Boolean checkPossibleHorizontalValid(Integer stringPosition,Integer stringLength){
+        return stringPosition < stringLength - 3;
+    }
+
+    private Boolean checkPossibleDiagValid(Integer arrayPos,Integer stringPos,Integer arrayLength,Integer stringLength){
+        return arrayPos < arrayLength - 3 && stringPos < stringLength - 3;
+    }
+    private Boolean checkPossibleDiagReverseValid(Integer arrayPos,Integer stringPos,Integer stringLength){
+        return arrayPos >= 3 && stringPos < stringLength - 3;
     }
 }
