@@ -3,13 +3,13 @@ package com.meli.dna.dto;
 import java.util.List;
 
 public class RequestDna {
-    List<String> list;
+    List<String> dna;
 
-    public List<String> getList() {
-        return list;
+    public List<String> getDna() {
+        return dna;
     }
 
-    public void setList(List<String> list) {
-        this.list = list;
+    public void setDna(List<String> dna) {
+        this.dna = dna;
     }
 }

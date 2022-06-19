@@ -18,11 +18,8 @@ public class DnaController {
     @Autowired
     private IDnaService iDnaService;
 
-    @PostMapping("/dna")
-    ResponseEntity<?> postDna(@RequestBody RequestDna requestDna) throws JsonProcessingException {
-        ObjectMapper obj = new ObjectMapper();
-        System.out.println(obj.writeValueAsString(requestDna));
-
+    @PostMapping("/mutant")
+    ResponseEntity<?> postDna(@RequestBody RequestDna requestDna) {
         return iDnaService.processDna(requestDna);
     }
 }

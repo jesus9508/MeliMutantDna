@@ -22,13 +22,14 @@ public class DnaService implements IDnaService {
     @Override
     public ResponseEntity<?> processDna(RequestDna request) {
 
-        Map<String, String> validated = iValidMutantDna.validationsList(request.getList());
+        Map<String, String> validated = iValidMutantDna.validationsList(request.getDna());
         String valid = validated.get("valid");
         String message = validated.get("message");
         if(valid.equals("false")){
-           return getResponseEntity(setResponseFailDna(message),HttpStatus.BAD_REQUEST);
+           return getResponseEntity(setResponseFailDna(message),HttpStatus.FORBIDDEN);
         }
-        MutantDna mutantDna = getMutantDnaInstance(request.getList());
+        MutantDna mutantDna = getMutantDnaInstance(request.getDna());
+        //process if dna is of mutant or human
         Boolean isMutant = mutantDna.isMutant();
         return getResponseEntity(isMutant,HttpStatus.OK);
     }
