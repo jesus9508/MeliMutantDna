@@ -11,9 +11,9 @@ public class ResponseStats {
     private Double ratio;
 
     public ResponseStats(Double count_mutant_dna, Double count_human_dna, Double ratio) {
-        this.count_mutant_dna = count_mutant_dna;
-        this.count_human_dna = count_human_dna;
-        this.ratio = ratio;
+        this.setCount_mutant_dna(count_mutant_dna);
+        this.setCount_human_dna(count_human_dna);
+        this.setRatio(ratio);
     }
 
     public Double getCount_mutant_dna() {

@@ -1,6 +1,7 @@
 package com.meli.dna.services;
 
 import com.meli.dna.dto.RequestDna;
+import com.meli.dna.projections.IStats;
 import com.meli.dna.repositories.IDnaRepository;
 import com.meli.dna.services.logic.AbstractMutantDna;
 import com.meli.dna.services.logic.validator.ValidMutantDna;
@@ -109,6 +110,16 @@ public class DnaServiceTest {
         };
 
         Assertions.assertEquals(false,absctractEntity.isMutant());
+    }
+    @Test
+    public void getStatsTest(){
+        Mockito.when(iDnaRepository.getStatsOf(Mockito.anyLong())).thenReturn(getResponseStats(1.0));
+        ResponseEntity<?> result = dnaService.getStats();
+        Assertions.assertTrue(result.getStatusCodeValue() == 200);
+    }
+
+    private IStats getResponseStats(double value){
+        return () -> value;
     }
 
     private RequestDna getRequestCorrectInstance(List<String> list){

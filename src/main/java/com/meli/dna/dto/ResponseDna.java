@@ -5,15 +5,15 @@ public class ResponseDna {
     Boolean isMutant;
 
     public ResponseDna(String message) {
-        this.message = message;
+        this.setMessage(message);
     }
     public ResponseDna(Boolean isMutant) {
-        this.isMutant = isMutant;
+        this.setMutant(isMutant);
     }
 
     public ResponseDna(Boolean isMutant,String message) {
-        this.isMutant = isMutant;
-        this.message = message;
+        this.setMutant(isMutant);
+        this.setMessage(message);
     }
 
     public String getMessage() {

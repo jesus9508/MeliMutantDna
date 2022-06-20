@@ -52,6 +52,15 @@ public class DnaControllerTest {
         Assertions.assertEquals(actualResult,403);
     }
 
+    @Test
+    public void getStats() throws Exception {
+        Integer actualResult = mockMvc
+                .perform(MockMvcRequestBuilders.get("/stats").contentType(MediaType.APPLICATION_JSON)
+                        )
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getResponse().getStatus();
+        Assertions.assertEquals(actualResult,200);
+    }
+
     public RequestDna getRequestDna(List<String> list){
         RequestDna entity = new RequestDna();
         entity.setDna(list);
