@@ -8,6 +8,14 @@ Techinal test 'Meli' for checking If Dna Is From Mutant or Human
 ## Spring boot
 - 2.7
 
+## DataBase RDS (AWS)
+- the database has been deployed in RDS instance, these are the conection parameters
+```bash  
+   user: admin
+   password: melidna123
+   host: database-dna.ccyoyffl7r1w.us-east-1.rds.amazonaws.com/dna
+``` 
+
 ## How to start locally with docker?
 - compile and create .jar package whit tests
 ```bash  
