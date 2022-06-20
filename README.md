@@ -9,7 +9,7 @@ Techinal test 'Meli' for checking If Dna Is From Mutant or Human
 - 2.7
 
 ## How to start locally with docker?
-- compile and create .jar package
+- compile and create .jar package whit tests
 ```bash  
    mvn clean package 
 ``` 
