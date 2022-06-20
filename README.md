@@ -8,7 +8,7 @@ Techinal test 'Meli' for checking If Dna Is From Mutant or Human
 ## Spring boot
 - 2.7
 
-## How to start whit docker locally?
+## How to start locally with docker?
 - compile and create .jar package
 ```bash  
    mvn clean package 
