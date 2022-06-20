@@ -25,7 +25,7 @@ public class DnaController {
     }
 
     @GetMapping("/stats")
-    ResponseEntity<?> statsDna(@RequestBody RequestDna requestDna) {
-        return null;
+    ResponseEntity<?> statsDna() {
+        return iDnaService.getStats();
     }
 }

@@ -38,7 +38,7 @@ public class ValidMutantDna implements IValidMutantDna {
             }
         }else{
             valid = "false";
-            message = "List can be empty";
+            message = "List can't be empty";
         }
 
         responseValidations.put(VALID, valid);

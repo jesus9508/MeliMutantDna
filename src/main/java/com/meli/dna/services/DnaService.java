@@ -2,7 +2,9 @@ package com.meli.dna.services;
 
 import com.meli.dna.dto.RequestDna;
 import com.meli.dna.dto.ResponseDna;
+import com.meli.dna.dto.ResponseStats;
 import com.meli.dna.entities.DnaEntity;
+import com.meli.dna.projections.IStats;
 import com.meli.dna.repositories.IDnaRepository;
 import com.meli.dna.services.interfaces.IDnaService;
 import com.meli.dna.services.logic.MutantDna;
@@ -39,7 +41,7 @@ public class DnaService implements IDnaService {
             Boolean isMutant = mutantDna.isMutant();
             //saveDna
             saveDna(isMutant,request.getDna());
-            return getResponseEntity(getResponseObject(isMutant,"esta persona tiene super poderes"),HttpStatus.OK);
+            return getResponseEntity(getResponseObject(isMutant,"this person has superpowers"),HttpStatus.OK);
         }catch (Exception e){
             System.out.println(e.getMessage());
             return getResponseEntity(setResponseFailDna(e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -76,5 +78,25 @@ public class DnaService implements IDnaService {
         Optional<DnaEntity> exist =
             iDnaRepository.findFirstByDna(list.toString());
         return exist.orElse(null);
+    }
+
+    public ResponseEntity<?> getStats(){
+        double mutantCount;
+        double humanCount;
+        double ratio;
+        mutantCount = iDnaRepository.getStatsOf(2L).getCount();
+        humanCount = iDnaRepository.getStatsOf(1L).getCount();
+        try{
+            ratio = mutantCount / humanCount;
+            ratio = (ratio == Double.POSITIVE_INFINITY)?0.0:ratio;
+        }catch (Exception e){
+            ratio = 0.0;
+        }
+
+        return getResponseEntity(getResponseStatsEntity(mutantCount,humanCount,ratio),HttpStatus.OK);
+    }
+
+    public ResponseStats getResponseStatsEntity(Double mutant,Double human, Double ratio){
+        return new ResponseStats(mutant, human, ratio);
     }
 }

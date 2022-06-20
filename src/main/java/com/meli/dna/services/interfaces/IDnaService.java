@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IDnaService {
     ResponseEntity<?> processDna(RequestDna request);
+
+    ResponseEntity<?> getStats();
 }
