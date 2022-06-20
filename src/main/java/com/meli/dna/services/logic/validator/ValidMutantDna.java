@@ -11,7 +11,7 @@ import java.util.Map;
 @Component
 public class ValidMutantDna implements IValidMutantDna {
 
-    private static final String REGEX = "[ATCG]";
+    private static final String REGEX = "[ACGT]+";
     private static final String VALID = "valid";
     private static final String MESSAGE = "message";
 
@@ -22,9 +22,10 @@ public class ValidMutantDna implements IValidMutantDna {
         String valid = "true";
         String message = null;
         int initialRange = 0;
-        List<String> request =null;
+        List<String> request ;
         //validate for empty list of strings
         if(validateIsNotEmptyList(requestProcess.getDna())){
+            System.out.println(requestProcess.getDna().toString());
             request = requestProcess.getDna();
             initialRange = request.get(0).length();
             //valid for different numbers of characteres in list
@@ -52,7 +53,6 @@ public class ValidMutantDna implements IValidMutantDna {
      * @return
      */
     private Boolean validateIsNotEmptyList(List<String> request){
-        System.out.println(request.size());
         return (request != null && request.size() > 0);
     }
 
@@ -78,7 +78,9 @@ public class ValidMutantDna implements IValidMutantDna {
      */
     private Boolean validateIsValidCharacters(List<String> request){
         for (String string :request) {
-             return !string.matches(REGEX);
+            if(!string.matches(REGEX)){
+                return false;
+            }
         }
         return true;
     }

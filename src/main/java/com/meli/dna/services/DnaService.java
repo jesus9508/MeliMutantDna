@@ -1,7 +1,7 @@
 package com.meli.dna.services;
 
 import com.meli.dna.dto.RequestDna;
-import com.meli.dna.dto.ResponseFailDna;
+import com.meli.dna.dto.ResponseDna;
 import com.meli.dna.entities.DnaEntity;
 import com.meli.dna.repositories.IDnaRepository;
 import com.meli.dna.services.interfaces.IDnaService;
@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -40,19 +39,24 @@ public class DnaService implements IDnaService {
             Boolean isMutant = mutantDna.isMutant();
             //saveDna
             saveDna(isMutant,request.getDna());
-            return getResponseEntity(isMutant,HttpStatus.OK);
+            return getResponseEntity(getResponseObject(isMutant,"esta persona tiene super poderes"),HttpStatus.OK);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return getResponseEntity(setResponseFailDna(e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+    private ResponseDna getResponseObject(Boolean isMutant, String message){
+        ResponseDna obj = new ResponseDna(isMutant,message);
+        return obj;
     }
 
     private ResponseEntity<?> getResponseEntity(Object object, HttpStatus httpStatus){
         return new ResponseEntity<>(object,httpStatus);
     }
 
-    private ResponseFailDna setResponseFailDna(String message){
-        return new ResponseFailDna(message);
+    private ResponseDna setResponseFailDna(String message){
+        return new ResponseDna(message);
     }
 
     private MutantDna getMutantDnaInstance(List<String> listDna){
