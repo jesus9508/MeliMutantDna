@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.dna.dto.RequestDna;
 import com.meli.dna.services.interfaces.IDnaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,5 +28,10 @@ public class DnaController {
     @GetMapping("/stats")
     ResponseEntity<?> statsDna() {
         return iDnaService.getStats();
+    }
+
+    @GetMapping("/health-check")
+    ResponseEntity<?> healtCheck() {
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 }
