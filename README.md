@@ -36,4 +36,4 @@ Techinal test 'Meli' for checking If Dna Is From Mutant or Human
 ```
 
 ## Postman Collection
-  [download collection](https://dnamutantbucket.s3.amazonaws.com/postmanCollection/dna-mutant.postman_collection.json)
+  [download collection](https://dnamutantbucket.s3.amazonaws.com/postmanCollection/dna-mutant.postman_collectionV2.json)
