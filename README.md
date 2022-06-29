@@ -13,7 +13,8 @@ Techinal test 'Meli' for checking If Dna Is From Mutant or Human
 ```bash  
    user: admin
    password: melidna123
-   host: database-dna.ccyoyffl7r1w.us-east-1.rds.amazonaws.com/dna
+   host: database-dna.ccyoyffl7r1w.us-east-1.rds.amazonaws.com
+   database:dna
 ``` 
 
 ## How to start locally with docker?
